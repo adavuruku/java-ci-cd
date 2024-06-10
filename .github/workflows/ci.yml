@@ -69,6 +69,18 @@ jobs:
 
     # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
+    
+
+  publish:
+    needs: build #this indicate that this job depends on the build jobs
+    runs-on: ${{matrix.os}} # it should run on 3 os platform
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    permissions:
+      contents: read
+
+    steps:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
@@ -88,12 +100,3 @@ jobs:
           ${{ secrets.DOCKER_USERNAME }}/java-ci-cd-app:latest
           ${{ secrets.DOCKER_USERNAME }}/java-ci-cd-app:${{ github.sha }}
           ${{ secrets.DOCKER_USERNAME }}/java-ci-cd-app:${{ github.ref_name }}-${{ github.sha }}
-
-  # publish:
-  #   needs: build #this indicate that this job depends on the build jobs
-  #   runs-on: ${{matrix.os}} # it should run on 3 os platform
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest, windows-latest, macOs-latest]
-  #   permissions:
-  #     contents: read
