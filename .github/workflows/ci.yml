@@ -52,7 +52,10 @@ jobs:
 
   dependency-submission:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}} # it should run on 3 os platform
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOs-latest]
     permissions:
       contents: write
 
@@ -69,11 +72,11 @@ jobs:
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
-  publish:
-    needs: build #this indicate that this job depends on the build jobs
-    runs-on: ${{matrix.os}} # it should run on 3 os platform
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOs-latest]
-    permissions:
-      contents: read
+  # publish:
+  #   needs: build #this indicate that this job depends on the build jobs
+  #   runs-on: ${{matrix.os}} # it should run on 3 os platform
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest, macOs-latest]
+  #   permissions:
+  #     contents: read
