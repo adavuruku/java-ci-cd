@@ -38,16 +38,6 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-    
-    - name: Verify JAR file exists
-      run: |
-          if [ ! -f build/libs/*.jar ]; then
-            echo "JAR file not found!"
-            exit 1
-          fi
-
-    - name: List directory contents
-      run: ls -la
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
@@ -91,6 +81,16 @@ jobs:
       contents: read
 
     steps:
+    - name: Verify JAR file exists
+      run: |
+          if [ ! -f build/libs/*.jar ]; then
+            echo "JAR file not found!"
+            exit 1
+          fi
+
+    - name: List directory contents
+      run: ls -la
+      
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
