@@ -52,10 +52,10 @@ jobs:
 
   dependency-submission:
 
-    runs-on: ${{matrix.os}} # it should run on 3 os platform
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOs-latest]
+    runs-on: ubuntu-latest #${{matrix.os}} # it should run on 3 os platform
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, windows-latest, macOs-latest]
     permissions:
       contents: write
 
@@ -71,6 +71,13 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+    - name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        image: sherifadavuruku/java-ci-cd-app:latest
+        registry: docker.io
+        username: ${{secrets.DOCKER_USERNAME}}
+        password: ${{secrets.DOCKER_PASSWORD}}
 
   # publish:
   #   needs: build #this indicate that this job depends on the build jobs
