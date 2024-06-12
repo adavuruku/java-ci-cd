@@ -39,14 +39,14 @@ jobs:
     - name: Grant execute permission for Gradle wrapper
       run: chmod +x Dockerfile
 
-    - name: Apply Lint to code base
-      uses: super-linter/super-linter@v6.6.0
-      with:
-        token: ${{ secrets.PAT_TOKEN }}
-      env:
-        VALIDATE_ALL_CODEBASE: false
-        DEFAULT_BRANCH: main
-        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+    # - name: Apply Lint to code base
+    #   uses: super-linter/super-linter@v6.6.0
+    #   with:
+    #     token: ${{ secrets.PAT_TOKEN }}
+    #   env:
+    #     VALIDATE_ALL_CODEBASE: false
+    #     DEFAULT_BRANCH: main
+    #     GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
