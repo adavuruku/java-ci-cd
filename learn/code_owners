@@ -1,0 +1,54 @@
+To enforce that pull requests modifying files with designated code owners require an approving review from those code owners on GitHub, you can utilize the **CODEOWNERS** file in combination with branch protection rules. Here’s how to set this up:
+
+### Step 1: Define Code Owners
+
+1. **Create a CODEOWNERS File:** The CODEOWNERS file should be placed in the `.github` directory or the root directory of your repository. This file specifies who the code owners are for different parts of the codebase.
+
+```plaintext
+# Example of a CODEOWNERS file
+# These owners will be requested for review when these files are changed.
+# Specify users by their GitHub username or by team name.
+
+# Code owners for all files
+*       @global-owner1 @global-owner2
+
+# Code owners for specific directories
+/docs/  @docs-owner
+
+# Code owners for specific files
+*.js    @js-owner
+```
+
+2. **Commit the CODEOWNERS File:** Once you’ve created and configured your CODEOWNERS file, commit it to your repository.
+
+### Step 2: Enable Required Review from Code Owners in Branch Protection Rules
+
+1. **Navigate to Repository Settings:**
+   - Go to your GitHub repository.
+   - Click on `Settings` in the top menu.
+
+2. **Configure Branch Protection Rules:**
+   - In the left sidebar, click on `Branches`.
+   - Under `Branch protection rules`, click on `Add rule`.
+
+3. **Set Up the Branch Protection Rule:**
+   - **Branch Name Pattern:** Specify the branch name pattern, for example, `main`.
+   - **Require pull request reviews before merging:** Check this option.
+   - **Require review from Code Owners:** Check this option.
+   - **Number of required approving reviews before merging:** Optionally, specify the number of approving reviews required (e.g., 1 or 2).
+
+4. **Save Changes:** Click on `Create` or `Save changes` to apply the branch protection rules.
+
+### Summary
+
+By following these steps, you enforce that any pull request that modifies files with designated code owners must receive an approving review from those code owners before it can be merged. This setup leverages GitHub’s CODEOWNERS file to define ownership and GitHub’s branch protection rules to enforce the required reviews.
+
+### Additional Tips
+
+- **Communicate Ownership:** Make sure all contributors are aware of who the code owners are and how the review process works.
+- **Update CODEOWNERS Regularly:** Keep the CODEOWNERS file up-to-date to reflect changes in code ownership or team structure.
+- **Documentation:** Document the code review process and the role of code owners in your repository’s README or a dedicated `CONTRIBUTING.md` file.
+
+This setup helps maintain code quality by ensuring that knowledgeable reviewers approve changes to critical parts of the codebase.
+
+Note: 

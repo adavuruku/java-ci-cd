@@ -13,7 +13,7 @@ jobs:
     hello:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4 #this github inbuilt action is use to tell workflow check out in to the repo files. if the action has nothing to do with the ode like this one its then not required
+            - uses: actions/checkout@v4 #this github inbuilt action is use to tell workflow check out in to the repo files. if the action has nothing to do with the code like this one its then not required
             - name: hello world
               run: echo "Hello world"
               shell: bash

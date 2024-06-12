@@ -1,0 +1,37 @@
+The "Require signed commits" setting in a version control system like Git is used to enforce that all commits pushed to certain branches or tags are cryptographically signed. Here's a detailed explanation:
+
+### Require Signed Commits
+
+**Purpose:** This setting ensures that all commits pushed to specified branches or tags are signed with a verified cryptographic signature. This enhances the security and integrity of the codebase by verifying the identity of the commit authors.
+
+**Details:**
+- **Verified Signatures:** Only commits with verified signatures are allowed. A verified signature means the commit has been signed using a GPG (GNU Privacy Guard) or SSH (Secure Shell) key that is recognized and trusted by the repository.
+- **Pattern Matching:** The pattern can be a specific name, a wildcard, or a regular expression that defines which branches or tags the restriction applies to.
+- **Prevent Pushing:** If a commit does not have a verified signature, it cannot be pushed to the branches or tags that match the pattern.
+- **Bypass Permissions:** Typically, only users with special permissions (bypass permissions) can override this restriction.
+
+### Example Scenario:
+- Suppose you want to ensure that all commits to the `main` branch are verified as coming from trusted developers. You could set the pattern `main` and enable "Require signed commits" for this branch.
+- With this setting enabled, any attempt to push an unsigned or unverified commit to the `main` branch would be rejected by the version control system.
+
+### Benefits of Requiring Signed Commits
+
+1. **Enhanced Security:** By requiring commits to be signed, you ensure that the identity of the commit author is verified, reducing the risk of malicious code being introduced by unauthorized users.
+2. **Traceability:** Signed commits provide a clear audit trail, making it easier to track who made specific changes and when.
+3. **Integrity Assurance:** Signatures help verify that the commit data has not been tampered with since it was signed.
+
+### How to Create Signed Commits
+
+1. **Generate a GPG Key:** Developers need to generate a GPG key pair if they don't already have one. This involves creating a public and private key pair using GPG software.
+2. **Configure Git to Use the GPG Key:** Developers need to configure their Git settings to use their GPG key for signing commits. This involves setting the GPG key ID in their Git configuration.
+3. **Sign Commits:** When making commits, developers can sign them by using the `-S` flag with the `git commit` command (e.g., `git commit -S -m "Your commit message"`).
+
+### Implementation
+
+1. **Setup GPG Keys:** Ensure all developers who need to push to the protected branches have GPG keys and know how to sign their commits.
+2. **Configure Repository:** In the repository settings, enable the "Require signed commits" rule for the desired branches or tags and specify the pattern.
+3. **Verification:** Ensure the repository's CI/CD system or version control system is configured to verify commit signatures against the list of trusted GPG keys.
+
+### Summary
+
+The "Require signed commits" setting enforces that all commits pushed to specified branches or tags are cryptographically signed with verified signatures. This enhances the security, traceability, and integrity of the codebase by ensuring that only commits from verified and trusted developers are accepted.
