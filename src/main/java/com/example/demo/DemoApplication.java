@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
 
 	public static void main(String[] args) {
+		//djeje docker.io/sherifadavuruku/java-ci-cd-app:latest
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
