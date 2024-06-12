@@ -1,0 +1,29 @@
+The "Require linear history" setting in a version control system like Git is used to enforce a specific type of commit history on branches that match certain patterns. Here's a detailed explanation:
+
+### Require Linear History
+
+**Purpose:** This setting ensures that the commit history of the specified branches or tags is linear, meaning no merge commits are allowed. A linear history is created by rebasing and fast-forward merges, as opposed to merge commits which create a branching history.
+
+**Details:**
+- **Prevent Merge Commits:** When this setting is enabled, merge commits (which are created by the default `git merge` command) are not allowed on branches or tags that match the specified pattern.
+- **Pattern Matching:** The pattern can be a specific name, a wildcard, or a regular expression that defines which branches or tags the restriction applies to.
+- **Bypass Permissions:** Typically, only users with special permissions (bypass permissions) can override this restriction.
+
+**Example Scenario:**
+- Suppose you want to enforce a linear history on the `main` branch to keep the commit history clean and easy to follow. You could set the pattern `main`.
+- With "Require linear history" enabled for the `main` branch, developers will not be able to push merge commits to this branch. Instead, they will need to rebase their changes onto the latest `main` branch and perform a fast-forward merge.
+
+### Why Use Linear History?
+
+1. **Clean Commit History:** A linear history makes the commit history straightforward and easy to read, as it avoids the complexity of multiple branches and merge commits.
+2. **Easier Bisecting:** Tools like `git bisect` work more effectively with a linear history when trying to locate which commit introduced a bug.
+3. **Clearer Project Progress:** A linear history can help project maintainers and developers understand the project's progression more easily.
+
+### How to Maintain a Linear History
+
+- **Rebasing:** Instead of merging branches, developers can rebase their changes onto the target branch. This rewrites the commit history so that it appears as if the changes were made sequentially after the latest commits in the target branch.
+- **Fast-Forward Merges:** After rebasing, a fast-forward merge can be performed. This type of merge moves the branch pointer forward without creating a merge commit.
+
+### Summary
+
+Enabling the "Require linear history" setting ensures that the commit history of specified branches or tags remains linear, free from merge commits. This is achieved by requiring developers to use techniques like rebasing and fast-forward merges. The setting helps maintain a clean, easy-to-read commit history and can improve the efficiency of certain Git operations.

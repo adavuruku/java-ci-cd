@@ -1,0 +1,31 @@
+The options "Restrict creations" and "Restrict updates" are settings typically found in version control systems (VCS) like Git. These settings are used to control who can create or update branches or tags based on specific naming patterns. Here’s a detailed explanation of each setting:
+
+### Restrict Creations
+
+**Purpose:** This setting controls who is allowed to create new branches or tags with names that match a specified pattern.
+
+**Details:**
+- **If selected:** Only users who have bypass permissions can create branches or tags with names matching the pattern you specify.
+- **Pattern Matching:** The pattern can be a specific name, a wildcard, or a regular expression that defines which branch or tag names the restriction applies to.
+- **Bypass Permissions:** Users with special permissions (bypass permissions) can override this restriction. These users are typically administrators or maintainers who have higher-level control over the repository.
+
+**Example Scenario:**
+- Suppose you want to prevent most users from creating branches that start with "release/". You could set a pattern like `release/*`.
+- With "Restrict creations" enabled for this pattern, only users with bypass permissions can create branches named `release/1.0`, `release/2.0`, etc.
+
+### Restrict Updates
+
+**Purpose:** This setting controls who is allowed to push changes (commits) to branches or tags with names that match a specified pattern.
+
+**Details:**
+- **If selected:** Only users who have bypass permissions can push updates to branches or tags with names matching the pattern you specify.
+- **Pattern Matching:** The pattern can be a specific name, a wildcard, or a regular expression that defines which branch or tag names the restriction applies to.
+- **Bypass Permissions:** Users with special permissions (bypass permissions) can override this restriction. These users are typically administrators or maintainers who have higher-level control over the repository.
+
+**Example Scenario:**
+- Suppose you want to prevent most users from pushing changes directly to the `main` branch to enforce a workflow where changes are merged via pull requests. You could set the pattern `main`.
+- With "Restrict updates" enabled for this pattern, only users with bypass permissions can push commits directly to the `main` branch.
+
+### Summary
+
+These settings are useful for enforcing workflow policies and protecting critical branches or tags in a repository. By specifying patterns and enabling these restrictions, you can ensure that only authorized users can create or update important branches or tags, thereby maintaining the integrity and stability of the codebase.
