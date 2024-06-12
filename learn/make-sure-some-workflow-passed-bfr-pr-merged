@@ -1,0 +1,73 @@
+To enforce that all workflows must pass on GitHub, you can use GitHub Actions along with branch protection rules. Here's a step-by-step guide to set this up:
+
+### Step 1: Define Your Workflows
+
+First, you need to define your workflows using GitHub Actions. These workflows are specified in YAML files located in the `.github/workflows` directory of your repository.
+
+1. **Create Workflow Files:** For example, you can create a workflow file named `ci.yml`.
+
+```yaml
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+```
+
+### Step 2: Enable Required Status Checks in Branch Protection Rules
+
+Once you have your workflows defined, you can enforce that they must pass before merging changes into certain branches.
+
+1. **Navigate to Repository Settings:**
+   - Go to your GitHub repository.
+   - Click on `Settings` in the top menu.
+
+2. **Configure Branch Protection Rules:**
+   - In the left sidebar, click on `Branches`.
+   - Under `Branch protection rules`, click on `Add rule`.
+   
+3. **Set Up the Branch Protection Rule:**
+   - **Branch Name Pattern:** Specify the branch name pattern, for example, `main`.
+   - **Require Status Checks to Pass Before Merging:** Check this option.
+   - **Select Status Checks:** Under `Status checks that are required`, select the workflows that you want to enforce. These will be listed based on the names defined in your workflow files. For example, you might see `ci` as an option if your workflow name is `CI`.
+
+4. **Additional Settings (Optional):**
+   - **Require pull request reviews before merging:** Check this if you also want to enforce code reviews.
+   - **Require signed commits:** Check this if you want to enforce signed commits.
+   - **Include administrators:** Check this if you want to apply the rules to administrators as well.
+
+5. **Save Changes:** Click on `Create` or `Save changes` to apply the branch protection rules.
+
+### Summary
+
+By following these steps, you ensure that all the defined workflows must pass before changes can be pushed or merged into the specified branches. This setup leverages GitHub Actions for CI/CD and GitHub's branch protection rules to enforce the successful completion of these workflows, maintaining high code quality and stability.
+
+### Additional Tips
+
+- **Monitor Workflow Runs:** Regularly monitor the workflow runs from the `Actions` tab in your repository to ensure they are completing successfully.
+- **Update Workflows:** Keep your workflows updated to reflect any changes in your development process or testing requirements.
+- **Documentation:** Document your CI/CD process and branch protection rules in your repository’s README or a dedicated `CONTRIBUTING.md` file to ensure all contributors are aware of the requirements.
